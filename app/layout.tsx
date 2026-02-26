@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import Script from 'next/script'
 import './globals.css'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
@@ -10,7 +11,7 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://feetgeneratorai.com
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: 'Feet Generator AI',
+  title: 'Feet Generator AI - No Sign Up Required',
   description: 'Create hyper-realistic AI feet images instantly. Fast, private, secure. Advanced AI generator powered by cutting-edge technology.',
   keywords: ['ai feet generator', 'feet ai generator', 'ai feet pics', 'ai sexy feet', 'feet pic generator', 'ai feet'],
   authors: [{ name: 'Feet Generator AI' }],
@@ -37,7 +38,7 @@ export const metadata: Metadata = {
     ],
   },
   openGraph: {
-    title: 'Feet Generator AI',
+    title: 'Feet Generator AI - No Sign Up Required',
     description: 'Create hyper-realistic AI feet images instantly. Fast, private, secure. Advanced AI generator powered by cutting-edge technology.',
     url: siteUrl,
     siteName: 'Feet Generator AI',
@@ -54,7 +55,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Feet Generator AI',
+    title: 'Feet Generator AI - No Sign Up Required',
     description: 'Create hyper-realistic AI feet images instantly. Fast, private, secure. Advanced AI generator powered by cutting-edge technology.',
     images: [`${siteUrl}/logo.svg`],
   },
@@ -84,6 +85,18 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-C4JQJYX05S"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-C4JQJYX05S');
+          `}
+        </Script>
         <Header />
         {children}
         <Footer />
