@@ -1,7 +1,30 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
+
+const GENERATION_IMAGES = [
+  '/generation/1.jpg',
+  '/generation/2.jpg',
+  '/generation/3.jpg',
+  '/generation/4.jpg',
+  '/generation/5.jpg',
+  '/generation/6.jpg',
+  '/generation/7.jpg',
+  '/generation/8.jpg',
+  '/generation/9.jpg',
+  '/generation/10.jpg',
+  '/generation/11.jpg',
+  '/generation/12.jpg',
+  '/generation/13.jpg',
+  '/generation/14.jpg',
+  '/generation/15.jpg',
+  '/generation/16.jpg',
+  '/generation/17.jpg',
+]
+
+const STORAGE_KEY = 'feetgen_has_generated'
+const REFERRAL_URL = 'https://example.com/affiliate'
 
 export default function Generator() {
   const [prompt, setPrompt] = useState('')
@@ -10,14 +33,26 @@ export default function Generator() {
   const [progress, setProgress] = useState(0)
   const [hasGenerated, setHasGenerated] = useState(false)
 
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setHasGenerated(localStorage.getItem(STORAGE_KEY) === 'true')
+    }
+  }, [])
+
   const handleGenerate = async () => {
     if (!prompt.trim()) return
+
+    // Second time - redirect to referral immediately
+    if (hasGenerated) {
+      window.location.href = REFERRAL_URL
+      return
+    }
 
     setIsGenerating(true)
     setProgress(0)
     setGeneratedImage(null)
 
-    // Simulate progress
+    // Simulate progress (same timing as before ~10 seconds)
     const progressInterval = setInterval(() => {
       setProgress((prev) => {
         if (prev >= 90) {
@@ -29,40 +64,50 @@ export default function Generator() {
     }, 300)
 
     try {
-      const response = await fetch('/api/generate', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ prompt }),
-      })
+      // Simulate network delay (~8-10 seconds total)
+      await new Promise((resolve) => setTimeout(resolve, 8000))
 
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}))
-        throw new Error(errorData.error || 'Failed to generate image')
-      }
-
-      const data = await response.json()
       clearInterval(progressInterval)
       setProgress(100)
-      setGeneratedImage(data.imageUrl)
+
+      // Pick random image from generation folder
+      const randomImage = GENERATION_IMAGES[Math.floor(Math.random() * GENERATION_IMAGES.length)]
+      setGeneratedImage(randomImage)
       setHasGenerated(true)
-    } catch (error: any) {
-      console.error('Error generating image:', error)
-      clearInterval(progressInterval)
-      setProgress(0)
-      
-      // Show user-friendly error message
-      const errorMessage = error.message || 'Failed to generate image. Please try again with a different description.'
-      alert(errorMessage)
+      localStorage.setItem(STORAGE_KEY, 'true')
     } finally {
       setIsGenerating(false)
     }
   }
 
   const handleUnlock = () => {
-    // Redirect to homepage
-    window.location.href = '/'
+    window.location.href = REFERRAL_URL
+  }
+
+  // Already generated before - show CTA to referral
+  if (hasGenerated && !generatedImage && !isGenerating) {
+    return (
+      <div className="w-full max-w-4xl mx-auto">
+        <div className="bg-slate-900/50 backdrop-blur-sm border border-slate-800 rounded-2xl p-6 md:p-8 shadow-2xl">
+          <div className="space-y-6">
+            <div className="mb-4">
+              <h3 className="text-2xl font-bold text-white">AI Feet Generator</h3>
+            </div>
+            <p className="text-slate-300">
+              You have already used your free generation. Get unlimited access below.
+            </p>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={handleUnlock}
+              className="w-full py-5 bg-gradient-to-r from-purple-600 via-blue-600 to-purple-600 text-white font-bold text-lg rounded-lg shadow-2xl shadow-purple-500/50 transition-all duration-300 flex items-center justify-center gap-3 animate-pulse-slow"
+            >
+              <span>Get Unlimited Generations - Click Here</span>
+            </motion.button>
+          </div>
+        </div>
+      </div>
+    )
   }
 
   return (
