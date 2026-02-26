@@ -582,10 +582,10 @@ export default function Home() {
             </h2>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
               <motion.div
-                variants={fadeInUp}
-                initial="initial"
-                whileInView="animate"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
                 className="bg-slate-800/50 p-6 rounded-lg border border-slate-700 hover:border-purple-500/50 transition-colors"
               >
                 <h3 className="text-xl font-semibold text-white mb-2">Fast</h3>
@@ -593,10 +593,10 @@ export default function Home() {
               </motion.div>
               
               <motion.div
-                variants={fadeInUp}
-                initial="initial"
-                whileInView="animate"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
                 className="bg-slate-800/50 p-6 rounded-lg border border-slate-700 hover:border-purple-500/50 transition-colors"
               >
                 <h3 className="text-xl font-semibold text-white mb-2">Private</h3>
@@ -604,10 +604,10 @@ export default function Home() {
               </motion.div>
               
               <motion.div
-                variants={fadeInUp}
-                initial="initial"
-                whileInView="animate"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
                 className="bg-slate-800/50 p-6 rounded-lg border border-slate-700 hover:border-purple-500/50 transition-colors"
               >
                 <h3 className="text-xl font-semibold text-white mb-2">High-Res</h3>
@@ -615,10 +615,10 @@ export default function Home() {
               </motion.div>
               
               <motion.div
-                variants={fadeInUp}
-                initial="initial"
-                whileInView="animate"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
                 className="bg-slate-800/50 p-6 rounded-lg border border-slate-700 hover:border-purple-500/50 transition-colors"
               >
                 <h3 className="text-xl font-semibold text-white mb-2">Unlimited</h3>
