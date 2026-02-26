@@ -1,0 +1,75 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="footGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a855f7" />
+      <stop offset="50%" stop-color="#3b82f6" />
+      <stop offset="100%" stop-color="#a855f7" />
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background circle -->
+  <circle cx="100" cy="100" r="90" fill="url(#footGradient)" opacity="0.15" />
+  
+  <!-- Foot shape - more realistic -->
+  <g transform="translate(100, 120)" filter="url(#glow)">
+    <!-- Main foot outline - realistic shape -->
+    <path
+      d="M -35 25 
+         C -38 20 -38 10 -35 5 
+         C -32 0 -25 -3 -15 -5 
+         C -5 -6 5 -6 15 -5 
+         C 25 -3 32 0 35 5 
+         C 38 10 38 20 35 25 
+         C 32 28 25 30 15 32 
+         C 5 33 -5 33 -15 32 
+         C -25 30 -32 28 -35 25 Z"
+      fill="url(#footGradient)"
+      stroke="#a855f7"
+      stroke-width="2.5"
+      opacity="0.95"
+    />
+    
+    <!-- Toes - more realistic positioning -->
+    <ellipse cx="-25" cy="-2" rx="6" ry="10" fill="url(#footGradient)" opacity="0.85" transform="rotate(-10 -25 -2)" />
+    <ellipse cx="-10" cy="-4" rx="6" ry="10" fill="url(#footGradient)" opacity="0.85" transform="rotate(-5 -10 -4)" />
+    <ellipse cx="5" cy="-5" rx="7" ry="11" fill="url(#footGradient)" opacity="0.85" />
+    <ellipse cx="20" cy="-4" rx="6" ry="10" fill="url(#footGradient)" opacity="0.85" transform="rotate(5 20 -4)" />
+    <ellipse cx="30" cy="-2" rx="5" ry="9" fill="url(#footGradient)" opacity="0.85" transform="rotate(10 30 -2)" />
+    
+    <!-- Arch line - curved -->
+    <path
+      d="M -30 15 Q 0 10 30 15"
+      stroke="#3b82f6"
+      stroke-width="2"
+      fill="none"
+      opacity="0.8"
+    />
+    
+    <!-- Heel detail -->
+    <ellipse cx="0" cy="28" rx="18" ry="10" fill="url(#footGradient)" opacity="0.7" />
+    
+    <!-- Ankle area -->
+    <ellipse cx="0" cy="35" rx="12" ry="8" fill="url(#footGradient)" opacity="0.6" />
+    
+    <!-- AI accent below foot -->
+    <text
+      x="0"
+      y="55"
+      font-size="16"
+      font-weight="bold"
+      fill="url(#footGradient)"
+      text-anchor="middle"
+      font-family="Arial, sans-serif"
+      opacity="0.9"
+    >
+      AI
+    </text>
+  </g>
+</svg>
